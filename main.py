@@ -14,8 +14,8 @@ df["縣市"] = df["醫事機構地址"].str[0:3]
 # 第三步： 依照縣市欄位中的資料做分類加總，新增一欄"口罩剩餘總數"並產生新的表格
 mask_in_cities = df.groupby("縣市").sum()
 mask_in_cities["口罩剩餘總數"] = mask_in_cities["成人口罩剩餘數"] + mask_in_cities["兒童口罩剩餘數"]
-# print(mask_in_cities)
+print(mask_in_cities)
 
-# 第四步： 檔名加上檔案處理日期後存檔，加上編碼格式避免亂碼
-date = dt.date.today()
-mask_in_cities.to_csv(f"各縣市剩餘口罩數_{date}.csv", encoding="utf_8_sig")
+# 第四步： 檔名加上檔案處理日期時間後存檔，加上編碼格式避免亂碼
+time_stamp = dt.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+mask_in_cities.to_csv(f"各縣市剩餘口罩數_{time_stamp}.csv", encoding="utf_8_sig")
